@@ -1,0 +1,14 @@
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (8, '设置中心', 'main', NULL);
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (9, '编辑器', 'main', NULL);
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (10, '图标', 'main', NULL);
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (11, '概览', 'main', '');
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (12, '基本信息', 'child', '概览');
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (13, '最新信息', 'child', '概览');
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (14, '大饼图', 'child', '图表');
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (15, '柱状图', 'child', '图表');
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (16, '折线图', 'child', '图表');
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (17, '富文本', 'child', '编辑器');
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (18, '图片编辑', 'child', '编辑器');
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (19, '用户管理', 'child', '设置中心');
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (20, '事件管理', 'child', '设置中心');
+INSERT INTO `column_main`(`c_id`, `column_name`, `type`, `column_parent`) VALUES (21, '栏目管理', 'child', '设置中心');
