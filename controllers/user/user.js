@@ -26,13 +26,9 @@ let consumer = {
 
         let param = req.query || req.params
         let arr = []
-        console.log(param)
-        console.log(Object.keys(param).length)
-        console.log(Object.values(param))
         let a = Object.values(param).filter(item=>{
             return item !== ''
         })
-        console.log(a)
         if (a.length === 2) {
             let sql = 'select * from user where 1=1'
             sql += 'limit ?,?'
@@ -117,6 +113,33 @@ let consumer = {
             })
         }
     },
+    consumerAdd(req,res,next){
+        /*
+            *  新增
+            *  post
+        */ 
+       let param = req.body
+       arr = [param.name, param.age, param.address, param.address, param.phone, param.job, param.time.split('T')[0]]
+       let status =  arr.some(ele => {
+           return ele !== ''
+       });
+       if(status) {
+            pool.getConnection((err,conn)=>{
+                conn.query(userSQL.insert,arr,(err,result)=>{
+                    if(result) {
+                        result = {
+                            code:'200',
+                            msg:'操作成功',
+                            status:"success"
+                        }
+                    }
+                    _JSON.jsonRewrite(res, result)
+                    conn.release()
+                })
+            })
+       }
+       
+    }
 
 }
 

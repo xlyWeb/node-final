@@ -7,6 +7,8 @@ const consumer = require('../controllers/user/user')
 // })
 // 用户列表
 router.get('/consumerList',consumer.consumerList)
+// 新增用户
+router.post('/consumerAdd',consumer.consumerAdd)
 
 
 module.exports = router
