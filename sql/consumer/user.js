@@ -6,4 +6,5 @@ const userSql = {
     updateUser: 'update user set ? where username=?',// 更新用户信息
     deleteUser: 'delete from user where username=?' // 删除用户
 }
+
 module.exports = userSql
