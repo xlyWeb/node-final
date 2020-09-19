@@ -32,5 +32,5 @@ app.use("/user", CONSUMER);
 // app.use("/manage",MANAGE);
 // app.use("/chart",ECHART);
 app.listen(8001,'10.18.0.60', () => {
-  console.log("服务启动", "localhost:8001");
+  console.log("服务启动", "10.18.0.60:8001");
 });
