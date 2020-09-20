@@ -31,6 +31,6 @@ app.all("*", (req, res, next) => {
 app.use("/user", CONSUMER);
 // app.use("/manage",MANAGE);
 // app.use("/chart",ECHART);
-app.listen(8001,'10.18.0.60', () => {
+app.listen(8001,'192.168.42.206', () => {
   console.log("服务启动", "localhost:8001");
 });
