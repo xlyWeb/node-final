@@ -142,6 +142,21 @@ let consumer = {
             })
        }
        
+    },
+    consumerDelete(req,res,next){
+        let param = req.body
+        console.log(req)
+        pool.getConnection((res,conn)=>{
+            conn.query(userSQL.deleteUser,param,(err,result)=>{
+                if(result) {
+                    result = {
+                        code:'200',
+                        msg:'操作成功',
+                        status:'success'
+                    }
+                }
+            })
+        })
     }
 
 }

@@ -10,5 +10,7 @@ router.get('/consumerList',consumer.consumerList)
 // 新增用户
 router.post('/consumerAdd',consumer.consumerAdd)
 
+router.delete('/consumerDelete',consumer.consumerDelete)
+
 
 module.exports = router
