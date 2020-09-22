@@ -122,9 +122,12 @@ let consumer = {
        let status =  arr.some(ele => {
            return ele !== ''
        });
+       console.log(arr)
+
        if(status) {
             pool.getConnection((err,conn)=>{
                 conn.query(userSQL.insert,arr,(err,result)=>{
+                    console.log(err,result)
                     if(result) {
                         result = {
                             code:'200',
