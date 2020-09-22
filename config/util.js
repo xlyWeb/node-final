@@ -24,6 +24,20 @@ module.exports = {
         }else{
             res.json(ret)
         }
+    },
+
+
+    /*
+        用于分页操作
+        根绝穿过的下标和大小 来确定返回参数大小
+    */ 
+    editRes(arr,i,size){
+        let newarr = arr.filter((item,index)=>{
+            return  ((i-1)*size)< index < (i*size)
+        })   
+        return newarr
     }
 }
+
+
 

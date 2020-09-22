@@ -23,16 +23,15 @@ let consumer = {
          * 条件查询
          * 分页
          */
-
-        let param = req.query || req.params
+        let param = req.query
         let arr = []
         let a = Object.values(param).filter(item=>{
             return item !== ''
         })
         if (a.length === 2) {
-            let sql = 'select * from user where 1=1'
-            sql += 'limit ?,?'
-            arr.push((param.pageIndex - 1) * param.pageSize, parseInt(param.pageSize))
+            let sql = 'select * from user limit ?'
+            let num = parseInt(param.pageIndex) * parseInt(param.pageSize)
+            arr.push(num)
             pool.getConnection((err, conn) => {
                 conn.query(userSQL.queryAll, arr, (err, result) => {
                     if (result) {
@@ -41,7 +40,7 @@ let consumer = {
                             msg: '操作成功',
                             status: 'success',
                             data: {
-                                consumer: result,
+                                consumer: _JSON.editRes(result,param.pageIndex,param.pageSize),
                                 page:{
                                     pageIndex:parseInt(param.pageIndex),
                                     pageSize:parseInt(param.pageSize),
@@ -98,7 +97,7 @@ let consumer = {
                             msg: '操作成功',
                             status: 'success',
                             data: {
-                                consumer: result,
+                                consumer:_JSON.editRes(result,param.pageIndex,param.pageSize),
                                 page:{
                                     pageIndex:parseInt(param.pageIndex),
                                     pageSize:parseInt(param.pageSize),
@@ -119,7 +118,7 @@ let consumer = {
             *  post
         */ 
        let param = req.body
-       arr = [param.name, param.age, param.address, param.address, param.phone, param.job, param.time.split('T')[0]]
+       arr = [param.username, param.age, param.address, param.address, param.phone, param.job, param.time.split('T')[0]]
        let status =  arr.some(ele => {
            return ele !== ''
        });
@@ -141,10 +140,9 @@ let consumer = {
        
     },
     consumerDelete(req,res,next){
-        let param = req.body
-        console.log(req)
-        pool.getConnection((res,conn)=>{
-            conn.query(userSQL.deleteUser,param,(err,result)=>{
+        let param = req.query
+        pool.getConnection((err,conn)=>{
+            conn.query(userSQL.deleteUser,param.id,(err,result)=>{
                 if(result) {
                     result = {
                         code:'200',
@@ -152,6 +150,43 @@ let consumer = {
                         status:'success'
                     }
                 }
+                _JSON.jsonRewrite(res, result)
+                    conn.release()
+            })
+        })
+    },
+    consumerListById(req,res,next){
+        let params = req.query
+        pool.getConnection((err,conn)=>{
+            conn.query(userSQL.queryById,params.id,(err,result)=>{
+                if(result){
+                    result = {
+                        code:'200',
+                        msg:'操作成功',
+                        status:'success',
+                        data:{
+                            consumerInfo:result[0]
+                        }
+                    }
+                }
+                _JSON.jsonRewrite(res, result)
+                conn.release()
+            })
+        })
+    },
+    consumerUpdate(req,res,next) {
+        let param = req.body
+        pool.getConnection((err,conn)=>{
+            conn.query(userSQL.updateUser,[param.username, param.age, param.address,param.password,param.phone,param.job,param.time,param.id],(err,result)=>{
+                if(result) {
+                    result = {
+                        code:'200',
+                        msg:'操作成功',
+                        status:'success'
+                    }
+                }
+                _JSON.jsonRewrite(res, result)
+                conn.release()
             })
         })
     }
